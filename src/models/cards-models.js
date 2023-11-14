@@ -1,10 +1,21 @@
 const cards = require('../data/cards.json')
 const templates = require('../data/templates.json')
 
-const { createCardResponse } = require('./models-helpers')
+const { createCardResponse, getImageUrl } = require('./models-helpers')
 
 exports.fetchCards = () => {
-  console.log('----- fetchCards')
+  // console.log('----- fetchCards')
+  const cardStubs = []
+  for (const card of cards) {
+    const imageUrl = getImageUrl(card.pages[0].templateId)
+    const newElement = {
+      title: card.title,
+      imageUrl: imageUrl,
+      card_id: card.id
+    }
+    cardStubs.push(newElement)
+  }
+  return Promise.resolve({cardStubs})
 }
 
 exports.fetchCardById = (cardId) => {

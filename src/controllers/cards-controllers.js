@@ -1,8 +1,11 @@
 const { fetchCards, fetchCardById } = require('../models/cards-models')
 
 exports.getCards = (req, res) => {
-  console.log('----- getCards')
+  // console.log('----- getCards')
   fetchCards()
+  .then(({cardStubs}) => {
+    res.status(200).send(cardStubs)
+  })
 }
 
 exports.getCardById = (req, res) => {
