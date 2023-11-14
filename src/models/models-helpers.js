@@ -35,4 +35,14 @@ createCardResponse = (card) => {
   return newCard
 }
 
-module.exports = { createCardResponse, getImageUrl }
+validateKeys = (cardKeys) => {
+  console.log('--------- validate keys')
+  const validKeys = ['title', 'sizes', 'basePrice', 'pages']
+  if (cardKeys.length != validKeys.length) return false
+  for(key of cardKeys) {
+    if (!validKeys.includes(key)) return false
+  }
+  return true
+}
+
+module.exports = { createCardResponse, getImageUrl, validateKeys }
