@@ -12,5 +12,7 @@ GET cards/:cardId
 
     Noticed some mismatch between the raw card data and expected response so I've created some helper functions to help handle it.
 
+    Also noticed an optional sizeId parameter. but unless I'm mistaken we're not told how to use it, so I'm just ignoring it for now.
+
   400:
     Validation probably not needed as 404 adequetaly covers this case. Included for thoroughness.

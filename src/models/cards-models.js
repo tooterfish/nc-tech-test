@@ -31,3 +31,7 @@ exports.fetchCardById = (cardId) => {
   }
   return Promise.reject({status: 404, message: `card ${cardId} not found`})
 }
+
+exports.addNewCard = (card) => {
+  console.log('----- addNewCard')
+}
