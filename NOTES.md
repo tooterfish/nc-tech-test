@@ -32,6 +32,8 @@ Using Date.now() to generate unique ID. Outputs an integer so will be compatible
 ---
 
 ### Given more time:
+I think for the post endpoint the post body probably needs more robust validation. I'm just checking if the keys match at the moment.
+
 I'd like to make use of routers. Although not strictly necessary in this case they make code a lot tidier and easier to maintain when more endpoints are implemented.
 
 I would've also liked to put error checking into its own controller, for similar reasons as above.
