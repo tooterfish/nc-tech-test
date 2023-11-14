@@ -34,9 +34,11 @@ exports.fetchCardById = (cardId) => {
 
 exports.addNewCard = (card) => {
   // console.log('----- addNewCard')
+
+  //validate keys of new card
   const cardKeys = Object.keys(card)
   if (!validateKeys(cardKeys)) {
-    return Promise.reject({ status: 400 })
+    return Promise.reject({ status: 400, message: 'invalid post body' })
   }
 
   //use a date object to ensure newId is a unique integer

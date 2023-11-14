@@ -182,6 +182,6 @@ describe('POST /cards', () => {
     const response = await request(app).post('/cards')
     .send(body)
     expect(response.status).toBe(400)
-    // expect(response.body.msg).toBe('invalid post body')
+    expect(response.body.msg).toBe('invalid post body')
   })
 })
