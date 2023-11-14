@@ -3,6 +3,7 @@ const { getCards, getCardById, postCard } = require('./controllers/cards-control
 
 
 const app = express()
+app.use(express.json())
 
 app.set('json spaces', 2);
 
