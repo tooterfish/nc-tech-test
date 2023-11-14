@@ -1,4 +1,4 @@
-const { getImageUrl, createCardResponse, validateKeys } = require('../models/models-helpers')
+const { getImageUrl, createCardResponse, validateKeys, validateCardId } = require('../models/models-helpers')
 
 describe('getImageUrl', () => {
   test('given an invalid template id return false', () => {
@@ -146,5 +146,18 @@ describe('validateKeys', () => {
   test('given an array of keys "cardKeys", return true if cardKeys and validKeys match', () => {
     const result = validateKeys(['title', 'sizes', 'basePrice', 'pages'])
     expect(result).toBe(true)
+  })
+})
+
+describe('validateCardId: a valid cardId is a of "card" + an integer', () => {
+  test('given a valid cardId return true', () => {
+    const cardId = 'card001'
+    const result = validateCardId(cardId)
+    expect(result).toBe(true)
+  })
+  test('given an invalid cardId return false', () => {
+    const cardId = 'not-a-card'
+    const result = validateCardId(cardId)
+    expect(result).toBe(false)
   })
 })

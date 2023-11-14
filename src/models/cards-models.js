@@ -1,7 +1,6 @@
 const cards = require('../data/cards.json')
-const templates = require('../data/templates.json')
 
-const { createCardResponse, getImageUrl, validateKeys } = require('./models-helpers')
+const { createCardResponse, getImageUrl, validateKeys, validateCardId } = require('./models-helpers')
 
 exports.fetchCards = () => {
   // console.log('----- fetchCards')
@@ -20,10 +19,9 @@ exports.fetchCards = () => {
 
 exports.fetchCardById = (cardId) => {
   // console.log('----- fetchCardById: ' + cardId)
-  const regex = new RegExp(/^card(\d){1,}$/)
-  if (!regex.test(cardId)) return Promise.reject({ status: 400, message: `invalid card id: ${cardId}` })
+  if (!validateCardId(cardId)) return Promise.reject({ status: 400, message: `invalid card id: ${cardId}` })
 
-  for (card of cards) {
+  for (const card of cards) {
     if (card.id === cardId) {
       const responseCard = createCardResponse(card)
       return Promise.resolve(responseCard)
@@ -32,11 +30,11 @@ exports.fetchCardById = (cardId) => {
   return Promise.reject({status: 404, message: `card ${cardId} not found`})
 }
 
-exports.addNewCard = (card) => {
+exports.addNewCard = (cardBody) => {
   // console.log('----- addNewCard')
 
   //validate keys of new card
-  const cardKeys = Object.keys(card)
+  const cardKeys = Object.keys(cardBody)
   if (!validateKeys(cardKeys)) {
     return Promise.reject({ status: 400, message: 'invalid post body' })
   }
@@ -45,10 +43,32 @@ exports.addNewCard = (card) => {
   const newId = 'card' + Date.now()
   const newCard = {
     id: newId,
-    ...card
+    ...cardBody
   }
   cards.push(newCard)
   //construct return object
   const responseCard = createCardResponse(newCard)
   return Promise.resolve(responseCard)
 }
+
+exports.removeCard = (cardId) => {
+  // console.log('----- removeCard: ' + cardId)
+  if (!validateCardId(cardId)) return Promise.reject({ status: 400, message: `invalid card id: ${cardId}` })
+  
+  if (cards.length === 0) return Promise.reject({status: 404, message: `no cards found`})
+  for (let i = 0; i < cards.length; i++) {
+    let card = cards[i]
+    if (card.id === cardId) {
+      // console.log(cards.length)
+      // console.log('removing ' + cardId)
+      cards.splice(i, 1)
+      // console.log(cards.length)
+      return Promise.resolve()
+    }
+  }
+  return Promise.reject(
+    {
+      status: 404, 
+      message: `card with id ${cardId} not found`
+    })
+} 

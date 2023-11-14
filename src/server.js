@@ -1,5 +1,5 @@
 const express = require('express')
-const { getCards, getCardById, postCard } = require('./controllers/cards-controllers')
+const { getCards, getCardById, postCard, deleteCardById } = require('./controllers/cards-controllers')
 
 
 const app = express()
@@ -17,6 +17,10 @@ app.get('/cards/:cardId/:sizeId?', async (req, res) => {
 
 app.post('/cards', async (req, res) => {
   postCard(req, res)
+})
+
+app.delete('/cards/:cardId', async (req, res) => {
+  deleteCardById(req, res)
 })
 
 module.exports = app

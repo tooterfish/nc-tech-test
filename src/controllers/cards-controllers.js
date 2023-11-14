@@ -1,4 +1,4 @@
-const { fetchCards, fetchCardById, addNewCard } = require('../models/cards-models')
+const { fetchCards, fetchCardById, addNewCard, removeCard } = require('../models/cards-models')
 
 exports.getCards = (req, res) => {
   // console.log('----- getCards')
@@ -26,6 +26,18 @@ exports.postCard = (req, res) => {
   addNewCard(req.body)
   .then((responseCard) => {
     res.status(201).send(responseCard)
+  })
+  .catch((err) => {
+    res.status(err.status).send({msg: err.message})
+  })
+}
+
+exports.deleteCardById = (req, res) => {
+  const { cardId } = req.params
+  // console.log('----- deleteCardById: ' + cardId)
+  removeCard(cardId)
+  .then(() => {
+    res.status(204).send()
   })
   .catch((err) => {
     res.status(err.status).send({msg: err.message})
