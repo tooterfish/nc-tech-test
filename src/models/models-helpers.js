@@ -36,7 +36,7 @@ createCardResponse = (card) => {
 }
 
 validateKeys = (cardKeys) => {
-  console.log('--------- validate keys')
+  // console.log('--------- validate keys')
   const validKeys = ['title', 'sizes', 'basePrice', 'pages']
   if (cardKeys.length != validKeys.length) return false
   for(key of cardKeys) {
