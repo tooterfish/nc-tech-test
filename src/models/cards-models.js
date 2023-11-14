@@ -54,7 +54,9 @@ exports.addNewCard = (cardBody) => {
 }
 
 exports.removeCard = (cardId) => {
-  console.log('----- removeCard: ' + cardId)
+  // console.log('----- removeCard: ' + cardId)
+  const regex = new RegExp(/^card(\d){1,}$/)
+  if (!regex.test(cardId)) return Promise.reject({ status: 400, message: `invalid card id: ${cardId}` })
   for (let i = 0; i < cards.length; i++) {
     let card = cards[i]
     if (card.id === cardId) {
@@ -65,4 +67,9 @@ exports.removeCard = (cardId) => {
       return Promise.resolve()
     }
   }
+  return Promise.reject(
+    {
+      status: 404, 
+      message: `card with id ${cardId} not found`
+    })
 } 

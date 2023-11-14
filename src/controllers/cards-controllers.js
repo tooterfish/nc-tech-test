@@ -39,4 +39,7 @@ exports.deleteCardById = (req, res) => {
   .then(() => {
     res.status(204).send()
   })
+  .catch((err) => {
+    res.status(err.status).send({msg: err.message})
+  })
 }
