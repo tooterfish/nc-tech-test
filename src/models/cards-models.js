@@ -43,6 +43,6 @@ exports.addNewCard = (card) => {
   cards.push(newCard)
   console.log(cards)
   //construct return object
-  const outputCard = createOutputCard(newCard)
-  return Promise.resolve(outputCard)
+  const responseCard = createCardResponse(newCard)
+  return Promise.resolve(responseCard)
 }

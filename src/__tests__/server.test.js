@@ -175,6 +175,6 @@ describe('POST /cards', () => {
     const response = await request(app).post('/cards')
     .send(body)
     expect(response.status).toBe(201)
-    // expect(response.body).toEqual(expected)
+    expect(response.body).toEqual(expected)
   })
 })

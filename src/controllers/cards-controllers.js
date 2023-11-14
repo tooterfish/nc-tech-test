@@ -24,8 +24,8 @@ exports.getCardById = (req, res) => {
 exports.postCard = (req, res) => {
   console.log('----- postCard')
   addNewCard(req.body)
-  .then((newCard) => {
-    res.status(201).send(newCard)
+  .then((responseCard) => {
+    res.status(201).send(responseCard)
   })
   .catch((err) => {
 
