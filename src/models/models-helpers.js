@@ -45,4 +45,9 @@ validateKeys = (cardKeys) => {
   return true
 }
 
-module.exports = { createCardResponse, getImageUrl, validateKeys }
+validateCardId = (cardId) => {
+  const regex = new RegExp(/^card(\d){1,}$/)
+  return regex.test(cardId)
+}
+
+module.exports = { createCardResponse, getImageUrl, validateKeys, validateCardId }

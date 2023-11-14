@@ -1,6 +1,6 @@
 const cards = require('../data/cards.json')
 
-const { createCardResponse, getImageUrl, validateKeys } = require('./models-helpers')
+const { createCardResponse, getImageUrl, validateKeys, validateCardId } = require('./models-helpers')
 
 exports.fetchCards = () => {
   // console.log('----- fetchCards')
@@ -19,8 +19,7 @@ exports.fetchCards = () => {
 
 exports.fetchCardById = (cardId) => {
   // console.log('----- fetchCardById: ' + cardId)
-  const regex = new RegExp(/^card(\d){1,}$/)
-  if (!regex.test(cardId)) return Promise.reject({ status: 400, message: `invalid card id: ${cardId}` })
+  if (!validateCardId(cardId)) return Promise.reject({ status: 400, message: `invalid card id: ${cardId}` })
 
   for (const card of cards) {
     if (card.id === cardId) {
@@ -54,8 +53,7 @@ exports.addNewCard = (cardBody) => {
 
 exports.removeCard = (cardId) => {
   // console.log('----- removeCard: ' + cardId)
-  const regex = new RegExp(/^card(\d){1,}$/)
-  if (!regex.test(cardId)) return Promise.reject({ status: 400, message: `invalid card id: ${cardId}` })
+  if (!validateCardId(cardId)) return Promise.reject({ status: 400, message: `invalid card id: ${cardId}` })
   
   if (cards.length === 0) return Promise.reject({status: 404, message: `no cards found`})
   for (let i = 0; i < cards.length; i++) {
