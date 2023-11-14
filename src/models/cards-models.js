@@ -1,7 +1,7 @@
 const cards = require('../data/cards.json')
 const templates = require('../data/templates.json')
 
-const { createCardResponse, getImageUrl } = require('./models-helpers')
+const { createCardResponse, getImageUrl, validateKeys } = require('./models-helpers')
 
 exports.fetchCards = () => {
   // console.log('----- fetchCards')
@@ -30,4 +30,25 @@ exports.fetchCardById = (cardId) => {
     }
   }
   return Promise.reject({status: 404, message: `card ${cardId} not found`})
+}
+
+exports.addNewCard = (card) => {
+  // console.log('----- addNewCard')
+
+  //validate keys of new card
+  const cardKeys = Object.keys(card)
+  if (!validateKeys(cardKeys)) {
+    return Promise.reject({ status: 400, message: 'invalid post body' })
+  }
+
+  //use a date object to ensure newId is a unique integer
+  const newId = 'card' + Date.now()
+  const newCard = {
+    id: newId,
+    ...card
+  }
+  cards.push(newCard)
+  //construct return object
+  const responseCard = createCardResponse(newCard)
+  return Promise.resolve(responseCard)
 }

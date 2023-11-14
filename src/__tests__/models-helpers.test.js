@@ -1,4 +1,4 @@
-const { getImageUrl, createCardResponse } = require('../models/models-helpers')
+const { getImageUrl, createCardResponse, validateKeys } = require('../models/models-helpers')
 
 describe('getImageUrl', () => {
   test('given an invalid template id return false', () => {
@@ -131,5 +131,20 @@ describe('createOutputCard', () => {
     const expected = '/front-cover-portrait-1.jpg'
     const result = createCardResponse(card)
     expect(result.imageUrl).toBe(expected)
+  })
+})
+
+describe('validateKeys', () => {
+  test('given an array of keys "cardKeys", return false if cardKeys.length != validKeys.length', () => {
+    const result = validateKeys(['a', 'b'])
+    expect(result).toBe(false)
+  })
+  test('given an array of keys "cardKeys", return false if cardKeys and validKeys do not match', () => {
+    const result = validateKeys(['title', 'sizes', 'rupees', 'pages'])
+    expect(result).toBe(false)
+  })
+  test('given an array of keys "cardKeys", return true if cardKeys and validKeys match', () => {
+    const result = validateKeys(['title', 'sizes', 'basePrice', 'pages'])
+    expect(result).toBe(true)
   })
 })

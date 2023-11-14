@@ -1,4 +1,4 @@
-const { fetchCards, fetchCardById } = require('../models/cards-models')
+const { fetchCards, fetchCardById, addNewCard } = require('../models/cards-models')
 
 exports.getCards = (req, res) => {
   // console.log('----- getCards')
@@ -15,6 +15,17 @@ exports.getCardById = (req, res) => {
   fetchCardById(cardId)
   .then((card) => {
     res.status(200).send(card)
+  })
+  .catch((err) => {
+    res.status(err.status).send({msg: err.message})
+  })
+}
+
+exports.postCard = (req, res) => {
+  // console.log('----- postCard')
+  addNewCard(req.body)
+  .then((responseCard) => {
+    res.status(201).send(responseCard)
   })
   .catch((err) => {
     res.status(err.status).send({msg: err.message})

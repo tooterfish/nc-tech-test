@@ -104,3 +104,84 @@ describe('GET /cards/:cardId', () => {
     expect(response.body.msg).toBe(`invalid card id: ${cardId}`)
   })
 })
+
+describe('POST /cards', () => {
+  test('201: respond with the appropriate new card object', async () => {
+    const body = {
+      "title": "example title",
+      "sizes": [
+        "sm",
+        "md",
+        "gt"
+      ],
+      "basePrice": 200,
+      "pages": [
+        {
+          "title": "Front Cover",
+          "templateId": "template006"
+        },
+        {
+          "title": "Inside Left",
+          "templateId": "template002"
+        },
+        {
+          "title": "Inside Right",
+          "templateId": "template003"
+        },
+        {
+          "title": "Back Cover",
+          "templateId": "template004"
+        }
+      ]
+    }
+    const expected = {
+      "title": "example title",
+      "imageUrl": "/front-cover-landscape.jpg",
+      "card_id": expect.any(String),
+      "base_price": 200,
+      "availableSizes": [
+        {
+          "id": "sm",
+          "title": "Small"
+        },
+        {
+          "id": "md",
+          "title": "Medium"
+        },
+        {
+          "id": "gt",
+          "title": "Giant"
+        }
+      ],
+      "pages": [
+          {
+            "title": "Front Cover",
+            "templateId": "template006"
+          },
+          {
+            "title": "Inside Left",
+            "templateId": "template002"
+          },
+          {
+            "title": "Inside Right",
+            "templateId": "template003"
+          },
+          {
+            "title": "Back Cover",
+            "templateId": "template004"
+          }
+        ]
+    }
+    const response = await request(app).post('/cards')
+    .send(body)
+    expect(response.status).toBe(201)
+    expect(response.body).toEqual(expected)
+  })
+  test('400: post body is invalid', async () => {
+    const body = {}
+    const response = await request(app).post('/cards')
+    .send(body)
+    expect(response.status).toBe(400)
+    expect(response.body.msg).toBe('invalid post body')
+  })
+})
