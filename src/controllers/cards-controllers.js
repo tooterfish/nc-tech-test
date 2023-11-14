@@ -22,7 +22,7 @@ exports.getCardById = (req, res) => {
 }
 
 exports.postCard = (req, res) => {
-  console.log('----- postCard')
+  // console.log('----- postCard')
   addNewCard(req.body)
   .then((responseCard) => {
     res.status(201).send(responseCard)

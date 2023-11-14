@@ -33,7 +33,7 @@ exports.fetchCardById = (cardId) => {
 }
 
 exports.addNewCard = (card) => {
-  console.log('----- addNewCard')
+  // console.log('----- addNewCard')
   //use a date object to ensure newId is a unique integer
   const newId = 'card' + Date.now()
   const newCard = {
@@ -41,7 +41,6 @@ exports.addNewCard = (card) => {
     ...card
   }
   cards.push(newCard)
-  console.log(cards)
   //construct return object
   const responseCard = createCardResponse(newCard)
   return Promise.resolve(responseCard)
