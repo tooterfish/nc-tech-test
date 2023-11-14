@@ -36,4 +36,7 @@ exports.deleteCardById = (req, res) => {
   const { cardId } = req.params
   console.log('----- deleteCardById: ' + cardId)
   removeCard(cardId)
+  .then(() => {
+    res.status(204).send()
+  })
 }
