@@ -3,6 +3,10 @@ const templates = require('../data/templates.json')
 
 const { createCardResponse } = require('./models-helpers')
 
+exports.fetchCards = () => {
+  console.log('----- fetchCards')
+}
+
 exports.fetchCardById = (cardId) => {
   // console.log('----- fetchCardById: ' + cardId)
   const regex = new RegExp(/^card(\d){1,}$/)

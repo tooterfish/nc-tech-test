@@ -1,4 +1,9 @@
-const { fetchCardById } = require('../models/cards-models')
+const { fetchCards, fetchCardById } = require('../models/cards-models')
+
+exports.getCards = (req, res) => {
+  console.log('----- getCards')
+  fetchCards()
+}
 
 exports.getCardById = (req, res) => {
   // console.log('----- getCardById')

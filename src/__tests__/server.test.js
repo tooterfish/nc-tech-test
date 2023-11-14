@@ -1,7 +1,32 @@
 const request = require('supertest')
 const app = require('../server')
 
-describe.only('GET /cards/:cardId', () => {
+describe('GET /cards', () => {
+  test('200: responds with array of card stubs', async () => {
+    const expected = [
+      {
+        "title": "card 1 title",
+        "imageUrl": "/front-cover-portrait-1.jpg",
+        "card_id": "card001"
+      },
+      {
+        "title": "card 2 title",
+        "imageUrl": "/front-cover-portrait-2.jpg",
+        "card_id": "card002"
+      },
+      {
+        "title": "card 3 title",
+        "imageUrl": "/front-cover-landscape.jpg",
+        "card_id": "card003"
+      }
+    ]
+    const response = await request(app).get('/cards')
+    expect(response.status).toBe(200)
+    expect(response.body).toEqual(expected)
+  })
+})
+
+describe('GET /cards/:cardId', () => {
   test('200: responds with card object with matching cardID', async () => {
     let response;
     let cardId;
