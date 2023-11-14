@@ -149,7 +149,7 @@ describe('validateKeys', () => {
   })
 })
 
-describe('validateCardId: a valid cardId is a of "card" + an integer', () => {
+describe('validateCardId: a valid cardId is a string of "card" + any integer', () => {
   test('given a valid cardId return true', () => {
     const cardId = 'card001'
     const result = validateCardId(cardId)
