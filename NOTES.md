@@ -1,5 +1,7 @@
 I've decided to convert the project into javascript as I'm much more familiar with it than typescript. I've never implemented a node project in typescript before and I'd have probably spent most of the session wrestling with squigly lines!
 
+Also, I don't have yarn installed. All tests successfully run with npm (the old "it works on my machine").
+
 sizes.json appears to be a duplicate of cards.json
 
 ---
