@@ -1,7 +1,7 @@
 const cards = require('../data/cards.json')
 const templates = require('../data/templates.json')
 
-const { createCardResponse, getImageUrl } = require('./models-helpers')
+const { createCardResponse, getImageUrl, validateKeys } = require('./models-helpers')
 
 exports.fetchCards = () => {
   // console.log('----- fetchCards')
@@ -34,6 +34,11 @@ exports.fetchCardById = (cardId) => {
 
 exports.addNewCard = (card) => {
   // console.log('----- addNewCard')
+  const cardKeys = Object.keys(card)
+  if (!validateKeys(cardKeys)) {
+    return Promise.reject({ status: 400 })
+  }
+
   //use a date object to ensure newId is a unique integer
   const newId = 'card' + Date.now()
   const newCard = {

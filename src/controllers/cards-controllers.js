@@ -28,6 +28,6 @@ exports.postCard = (req, res) => {
     res.status(201).send(responseCard)
   })
   .catch((err) => {
-
+    res.status(err.status).send()
   })
 }
