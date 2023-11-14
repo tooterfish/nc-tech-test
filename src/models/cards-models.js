@@ -52,3 +52,7 @@ exports.addNewCard = (card) => {
   const responseCard = createCardResponse(newCard)
   return Promise.resolve(responseCard)
 }
+
+exports.removeCard = (cardId) => {
+  console.log('----- removeCard: ' + cardId)
+} 

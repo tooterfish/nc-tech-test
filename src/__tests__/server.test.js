@@ -185,3 +185,23 @@ describe('POST /cards', () => {
     expect(response.body.msg).toBe('invalid post body')
   })
 })
+
+describe('DELETE /cards:cardId', () => {
+  test('204: card successfully deleted', async () => {
+    const cardId = 'card001'
+    const response = await request(app).delete(`/cards/${cardId}`)
+    expect(response.status).toBe(204)
+  })
+  test('404: card with given id not found', async () => {
+    const cardId = 'card100'
+    const response = await request(app).delete(`/cards/${cardId}`)
+    expect(response.status).toBe(404)
+    expect(response.body.msg).toBe(`card with id ${cardId} not found`)
+  })
+  test('400: given card id is invalid', async () => {
+    const cardId = 'not-a-card'
+    const response = await request(app).delete(`/cards/${cardId}`)
+    expect(response.status).toBe(400)
+    expect(response.body.msg).toBe(`invalid card id: ${cardId}`)
+  })
+})
